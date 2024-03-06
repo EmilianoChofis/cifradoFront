@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import ServicePayment from "../services/ServicePayment.js";
+import paymentService from "../services/paymentService.js";
 
 export default {
   data() {
@@ -42,15 +42,15 @@ export default {
   mounted() {
     this.getPayment();
   },
-    methods: {
-        async getPayment() {
-        try {
-            const id = this.$route.params.id;
-            // this.payment = await ServicePayment.getPayment(id);
-        } catch (error) {
-            console.error(error);
-        }
-        },
+  methods: {
+    async getPayment() {
+      try {
+        const id = this.$route.params.id;
+        // this.payment = await paymentService.getPayment(id);
+      } catch (error) {
+        console.error(error);
+      }
     },
+  },
 };
 </script>

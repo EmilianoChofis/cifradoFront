@@ -140,7 +140,7 @@
               <div class="col-md-6">
                 <label for="propietario" class="form-label">Propietario</label>
                 <b-form-input
-                  v-model="form.propietario"
+                  v-model="form.tarjeta.propietario"
                   type="text"
                   class="form-control"
                   id="propietario"
@@ -150,9 +150,11 @@
               </div>
 
               <div class="col-md-6">
-                <label for="tarjeta" class="form-label">Numero de tarjeta</label>
+                <label for="tarjeta" class="form-label"
+                  >Numero de tarjeta</label
+                >
                 <b-form-input
-                  v-model="form.tarjeta"
+                  v-model="form.tarjeta.numero"
                   type="text"
                   class="form-control"
                   id="tarjeta"
@@ -164,7 +166,7 @@
               <div class="col-md-3">
                 <label for="cvv" class="form-label">CVV</label>
                 <b-form-input
-                  v-model="form.cvv"
+                  v-model="form.tarjeta.cvv"
                   type="text"
                   class="form-control"
                   id="cvv"
@@ -177,7 +179,7 @@
                   >Fecha de expiracion</label
                 >
                 <b-form-input
-                  v-model="form.caducidad"
+                  v-model="form.tarjeta.caducidad"
                   type="date"
                   class="form-control"
                   id="caducidad"
@@ -199,7 +201,8 @@
 </template>
 
 <script>
-import ServicePayment from '../services/ServicePayment';
+import paymentService from "../services/paymentService.js";
+import { encryptBi, encryptUni } from "../services/cryptoService.js";
 
 export default {
   data() {
@@ -215,10 +218,13 @@ export default {
         calle: "",
         numero: "",
         telefono: "",
-        tarjeta: "",
-        cvv: "",
-        caducidad: "",
-        propietario: "",
+        tarjeta: {
+          numero: "",
+          ultimos4: "",
+          cvv: "",
+          caducidad: "",
+          propietario: "",
+        },
         monto: Math.floor(Math.random() * 1000),
       },
     };
@@ -227,8 +233,29 @@ export default {
     async onSubmit(evt) {
       evt.preventDefault();
       try {
+        this.form.tarjeta.ultimos4 = this.form.tarjeta.numero.slice(-4);
 
-        await ServicePayment.registerPayment(this.form);
+        const encryptedForm = {
+          nombre: encryptBi(this.form.nombre),
+          apellidos: encryptBi(this.form.apellidos),
+          pais: encryptBi(this.form.pais),
+          estado: encryptBi(this.form.estado),
+          cuidad: encryptBi(this.form.cuidad),
+          cp: encryptBi(this.form.cp),
+          colonia: encryptBi(this.form.colonia),
+          calle: encryptBi(this.form.calle),
+          numero: encryptBi(this.form.numero),
+          telefono: encryptBi(this.form.telefono),
+          tarjeta: {
+            numero: encryptUni(this.form.tarjeta.numero),
+            ultimos4: encryptBi(this.form.tarjeta.ultimos4),
+            cvv: encryptUni(this.form.tarjeta.cvv),
+            caducidad: encryptUni(this.form.tarjeta.caducidad),
+            propietario: encryptUni(this.form.tarjeta.propietario),
+          },
+        };
+        console.log(encryptedForm);
+        // await paymentService.registerPayment(this.form);
         this.$router.push({ name: "home" });
       } catch (error) {
         console.error(error);
@@ -237,7 +264,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 .marginB {
