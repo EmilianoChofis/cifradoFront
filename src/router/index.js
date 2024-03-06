@@ -11,7 +11,12 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+    },
+    {
+      path: '/details',
+      name: 'details',
+      component: () => import('../views/Details.vue')
     },
     {
       path: '/form',
