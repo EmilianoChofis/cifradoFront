@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import ServicePayment from "../services/ServicePayment.js";
+import paymentService from "../services/paymentService.js";
 
 export default {
   data() {
@@ -49,11 +49,11 @@ export default {
   methods: {
     async getPayments() {
       try {
-        this.payments = await ServicePayment.getPayments();
+        this.payments = await paymentService.getPayments();
       } catch (error) {
         console.error(error);
       }
     },
   },
 };
-</script>
+</script>../services/paymentService.js
