@@ -1,6 +1,7 @@
 import CryptoJS from "crypto-js";
 
-const key = "secret-key"; // Pendiente de cambio a .env
+var key  = CryptoJS.enc.Latin1.parse('1234567812345678');
+var iv   = CryptoJS.enc.Latin1.parse('1234567812345678');  
 
 if (!key) {
   throw new Error("No se ha proporcionado una clave secreta.");
@@ -12,7 +13,8 @@ export function encryptBi(value) {
     throw new Error("El valor a encriptar debe ser una cadena de texto.");
   }
 
-  return CryptoJS.AES.encrypt(value, key).toString();
+  return CryptoJS.AES.encrypt(value, key,
+    {iv:iv,mode:CryptoJS.mode.CBC,padding:CryptoJS.pad.ZeroPadding}).toString();
 }
 
 // Desencripta AES

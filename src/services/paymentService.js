@@ -18,7 +18,7 @@ const registerPayment = async (payment) => {
         "Content-Type": "application/json",
       },
     });
-    console.log(response);
+    console.log("Los del front estan bien pendejos" ,response);
     return response.data;
   } catch (error) {
     console.error(error);
