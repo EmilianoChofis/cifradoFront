@@ -33,3 +33,12 @@ export function encryptUni(value) {
 
   return CryptoJS.SHA256(value).toString();
 }
+
+export function progressiveHash(data) {
+  const sha256 = CryptoJS.algo.SHA256.create();
+    data.forEach((element) => {
+        sha256.update(element);
+    });
+  const hash = sha256.finalize();
+  return hash.toString(CryptoJS.enc.Hex);
+}

@@ -22,6 +22,17 @@ const router = new VueRouter({
       path: '/form',
       name: 'form',
       component: () => import('../views/Form.vue')
+    },
+    //rutas de claves usadas para mostrar el uso de hashing progresivo
+    {
+      path: '/claves',
+      name: 'claves',
+      component: () => import('../views/Claves.vue')
+    },
+    {
+      path: '/clavesForm',
+      name: 'clavesForm',
+      component: () => import('../views/clavesForm.vue')
     }
   ]
 })
