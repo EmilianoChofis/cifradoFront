@@ -6,6 +6,6 @@ export const getGrupos = async () => {
     console.log('getGrupos');
 }
 
-export const saveGrupo = async (grupo) => {
-    console.log(grupo) //será un solo hash
+export const saveGrupo = async (data) => {
+    console.log(data) //será un solo hash
 }

@@ -36,7 +36,6 @@ export function encryptUni(value) {
 
 export function progressiveHash(data) {
   const sha256 = CryptoJS.algo.SHA256.create();
-  //recorrido de array: data
     data.forEach((element) => {
         sha256.update(element);
     });

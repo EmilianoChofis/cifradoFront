@@ -66,6 +66,7 @@
 
 <script>
 import {progressiveHash} from "@/services/cryptoService";
+import {saveGrupo} from "@/services/gruposService";
 
 export default {
   data() {
@@ -79,9 +80,12 @@ export default {
   methods:{
     async onSubmit(evt){
       evt.preventDefault();
-      console.log(this.form.claves)
       const result = progressiveHash(this.form.claves);
-      console.log(result)
+      const data = {
+        nombre: this.form.nombre,
+        claves: result
+      }
+      const response = await saveGrupo(data);
     }
   }
 };
