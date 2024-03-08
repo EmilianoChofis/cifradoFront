@@ -76,6 +76,13 @@ export default {
       },
     };
   },
-
+  methods:{
+    async onSubmit(evt){
+      evt.preventDefault();
+      console.log(this.form.claves)
+      const result = progressiveHash(this.form.claves);
+      console.log(result)
+    }
+  }
 };
 </script>
