@@ -13,15 +13,21 @@ const router = new VueRouter({
       name: 'home',
       component: HomeView,
     },
+      //rutas de Pagos
     {
-      path: '/details',
-      name: 'details',
+      path: '/detailsPayment',
+      name: 'detailsPayment',
       component: () => import('../views/Details.vue')
     },
     {
-      path: '/form',
-      name: 'form',
-      component: () => import('../views/Form.vue')
+      path: '/payments',
+      name: 'payments',
+      component: () => import('../views/Payments.vue')
+    },
+    {
+      path: '/paymentForm',
+      name: 'paymentForm',
+      component: () => import('../views/PaymentForm.vue')
     },
     //rutas de claves usadas para mostrar el uso de hashing progresivo
     {
@@ -32,7 +38,7 @@ const router = new VueRouter({
     {
       path: '/clavesForm',
       name: 'clavesForm',
-      component: () => import('../views/clavesForm.vue')
+      component: () => import('../views/ClavesForm.vue')
     }
   ]
 })

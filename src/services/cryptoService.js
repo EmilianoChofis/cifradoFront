@@ -16,6 +16,7 @@ export function encryptBi(value) {
 }
 
 // Desencripta AES
+// Recibe una cadena de texto encriptada con AES
 export function decryptValue(encryptedValue) {
   if (typeof encryptedValue !== "string") {
     throw new Error("El valor encriptado debe ser una cadena de texto.");
@@ -26,6 +27,7 @@ export function decryptValue(encryptedValue) {
 }
 
 // Encripta valores de texto con SHA256
+// Recibe una cadena de texto
 export function encryptUni(value) {
   if (typeof value !== "string") {
     throw new Error("El valor a encriptar debe ser una cadena de texto.");
@@ -34,6 +36,8 @@ export function encryptUni(value) {
   return CryptoJS.SHA256(value).toString();
 }
 
+//Encripta valores de texto con SHA256 de manera progresiva generando un solo hash final
+//Recibe un array de valores a encriptar
 export function progressiveHash(data) {
   const sha256 = CryptoJS.algo.SHA256.create();
     data.forEach((element) => {
