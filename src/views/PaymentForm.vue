@@ -201,8 +201,9 @@
 </template>
 
 <script>
+import {encryptBi, encryptUni} from "../services/cryptoService.js";
+import registerPayment from "../services/paymentService.js";
 import paymentService from "../services/paymentService.js";
-import { encryptBi, encryptUni } from "../services/cryptoService.js";
 
 export default {
   data() {
@@ -233,33 +234,36 @@ export default {
     async onSubmit(evt) {
       evt.preventDefault();
       try {
-        this.form.tarjeta.ultimos4 = this.form.tarjeta.numero.slice(-4);
+        const encryptedForm = this.encryptData(this.form);
 
-        const encryptedForm = {
-          nombre: encryptBi(this.form.nombre),
-          apellidos: encryptBi(this.form.apellidos),
-          pais: encryptBi(this.form.pais),
-          estado: encryptBi(this.form.estado),
-          cuidad: encryptBi(this.form.cuidad),
-          cp: encryptBi(this.form.cp),
-          colonia: encryptBi(this.form.colonia),
-          calle: encryptBi(this.form.calle),
-          numero: encryptBi(this.form.numero),
-          telefono: encryptBi(this.form.telefono),
-          tarjeta: {
-            numero: encryptUni(this.form.tarjeta.numero),
-            ultimos4: encryptBi(this.form.tarjeta.ultimos4),
-            cvv: encryptUni(this.form.tarjeta.cvv),
-            caducidad: encryptUni(this.form.tarjeta.caducidad),
-            propietario: encryptUni(this.form.tarjeta.propietario),
-          },
-        };
-        console.log(encryptedForm);
+        const response = await paymentService.registerPayment(encryptedForm);
         // await paymentService.registerPayment(this.form);
-        this.$router.push({ name: "home" });
+        this.$router.push({ name: "payments" });
       } catch (error) {
         console.error(error);
       }
+    },
+    encryptData(form) {
+      this.form.tarjeta.ultimos4 = this.form.tarjeta.numero.slice(-4);
+      return {
+        nombre: encryptBi(this.form.nombre),
+        apellidos: encryptBi(this.form.apellidos),
+        pais: encryptBi(this.form.pais),
+        estado: encryptBi(this.form.estado),
+        cuidad: encryptBi(this.form.cuidad),
+        cp: encryptBi(this.form.cp),
+        colonia: encryptBi(this.form.colonia),
+        calle: encryptBi(this.form.calle),
+        numero: encryptBi(this.form.numero),
+        telefono: encryptBi(this.form.telefono),
+        tarjeta: {
+          numero: encryptUni(this.form.tarjeta.numero),
+          ultimos4: encryptBi(this.form.tarjeta.ultimos4),
+          cvv: encryptUni(this.form.tarjeta.cvv),
+          caducidad: encryptUni(this.form.tarjeta.caducidad),
+          propietario: encryptUni(this.form.tarjeta.propietario),
+        }
+      };
     },
   },
 };

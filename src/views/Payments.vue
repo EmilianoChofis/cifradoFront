@@ -5,7 +5,7 @@
     <b-button
         variant="primary"
         class="mt-2 mb-4"
-        :to="{ name: 'form' }"
+        :to="{ name: 'paymentForm' }"
     >
       Registrar compra
     </b-button>
@@ -20,11 +20,10 @@
           <b-card-text>
             Propietario: {{ payment.nombre }} {{ payment.apellidos }}
           </b-card-text>
-          <b-card-text> Monto: ${{ payment.monto }} MX </b-card-text>
 
           <b-button
               variant="primary"
-              :to="{ name: 'details', params: { id: payment.id } }"
+              :to="{ name: 'detailsPayment', params: { id: payment.id } }"
           >
             Detalles de la compra
           </b-button>
@@ -36,7 +35,9 @@
 </template>
 
 <script>
-import paymentService from "../services/paymentService.js";
+
+import {decryptValue} from "@/services/cryptoService";
+import paymentService from "@/services/paymentService";
 
 export default {
   data() {
@@ -46,15 +47,24 @@ export default {
   },
   created() {
     this.getPayments();
+    //this.decryptPayment();
   },
   methods: {
     async getPayments() {
       try {
-        this.payments = await paymentService.getPayments();
+        const response = await paymentService.getPayments();
+        response.forEach(payment => {
+          const nombre = decryptValue(payment.nombre);
+          const apellido =  decryptValue(payment.apellidos);
+          payment.nombre = nombre;
+          payment.apellidos = apellido;
+
+        });
+        this.payments = response;
       } catch (error) {
         console.error(error);
       }
-    },
+    }
   },
 };
 </script>../services/paymentService.js

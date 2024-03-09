@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js";
 
-var key  = CryptoJS.enc.Latin1.parse('1234567812345678');
-var iv   = CryptoJS.enc.Latin1.parse('1234567812345678');  
+const key  = CryptoJS.enc.Latin1.parse('1234567812345678');
+const iv = CryptoJS.enc.Latin1.parse('1234567812345678');
 
 if (!key) {
   throw new Error("No se ha proporcionado una clave secreta.");
@@ -23,9 +23,8 @@ export function decryptValue(encryptedValue) {
   if (typeof encryptedValue !== "string") {
     throw new Error("El valor encriptado debe ser una cadena de texto.");
   }
-
-  const bytes = CryptoJS.AES.decrypt(encryptedValue, key);
-  return bytes.toString(CryptoJS.enc.Utf8);
+  return CryptoJS.AES.decrypt(encryptedValue, key,
+    {iv:iv,mode:CryptoJS.mode.CBC,padding:CryptoJS.pad.Pkcs7}).toString(CryptoJS.enc.Latin1);
 }
 
 // Encripta valores de texto con SHA256
