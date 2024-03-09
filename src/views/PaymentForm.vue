@@ -1,208 +1,320 @@
 <template>
-  <div id="form" class="container marginB">
-    <main>
-      <div class="py-5 text-center">
-        <img
-          class="d-block mx-auto mb-4"
-          src="https://cdn-icons-png.freepik.com/512/102/102655.png"
-          alt="icono de carrito "
-          width="72"
-          height="57"
-        />
-        <h2>Metodo de pago</h2>
-      </div>
-      <div class="row g-5">
-        <div class="col-md-5 col-lg-4 order-md-last">
-          <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-success">Carrito</span>
+  <b-container class="mt-4 mb-4">
+    <h2>Metodo de pago</h2>
+    <hr />
+
+    <h4 class="mb-3">Direccion de pago</h4>
+    <b-form @submit="onSubmit">
+      <b-row>
+        <b-col>
+          <b-form-group
+            id="input-group-1"
+            label="Nombre"
+            label-for="nombre"
+            class="mb-3"
+          >
+            <b-form-input
+              v-model="form.nombre"
+              type="text"
+              class="form-control"
+              id="nombre"
+              placeholder="Jonathan Abed"
+              value=""
+              required
+            />
+          </b-form-group>
+        </b-col>
+
+        <b-col>
+          <b-form-group
+            id="input-group-2"
+            label="Apellidos"
+            label-for="apellidos"
+            class="mb-3"
+          >
+            <b-form-input
+              v-model="form.apellidos"
+              type="text"
+              class="form-control"
+              id="apellidos"
+              placeholder="Ramirez Garcia"
+              value=""
+              required
+            />
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <b-row>
+        <b-col>
+          <b-form-group
+            id="input-group-3"
+            label="Colonia"
+            label-for="colonia"
+            class="mb-3"
+          >
+            <b-form-input
+              v-model="form.colonia"
+              type="text"
+              class="form-control"
+              id="colonia"
+              placeholder="Santa Maria"
+              required
+            />
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group
+            id="input-group-3"
+            label="Calle"
+            label-for="calle"
+            class="mb-3"
+          >
+            <b-form-input
+              v-model="form.calle"
+              type="text"
+              class="form-control"
+              id="calle"
+              placeholder="Av Morelos"
+              required
+            />
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group
+            id="input-group-4"
+            label="Número"
+            label-for="numero"
+            class="mb-3"
+          >
+            <b-form-input
+              v-model="form.numero"
+              type="text"
+              class="form-control"
+              id="numero"
+              placeholder="#"
+              required
+            />
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <b-row>
+        <b-col>
+          <b-form-group
+            id="input-group-5"
+            label="Ciudad"
+            label-for="ciudad"
+            class="mb-3"
+          >
+            <b-form-input
+              v-model="form.cuidad"
+              type="text"
+              class="form-control"
+              id="Ciudad"
+              placeholder="Santa Maria"
+            />
+          </b-form-group>
+        </b-col>
+
+        <b-col>
+          <b-form-group
+            id="input-group-6"
+            label="Pais"
+            label-for="pais"
+            class="mb-3"
+          >
+            <b-form-select
+              v-model="form.pais"
+              class="form-select"
+              id="pais"
+              required
+            >
+              <option>Mexico</option>
+              <option>Perú</option>
+            </b-form-select>
+          </b-form-group>
+        </b-col>
+
+        <b-col>
+          <b-form-group
+            id="input-group-7"
+            label="Estado"
+            label-for="estado"
+            class="mb-3"
+          >
+            <b-form-select
+              v-model="form.estado"
+              class="form-select"
+              id="estado"
+              required
+            >
+              <option>Morelos</option>
+              <option>CDMX</option>
+            </b-form-select>
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <b-row>
+        <b-col cols="4">
+          <b-form-group
+            id="input-group-8"
+            label="Codigo postal (C.P)"
+            label-for="cp"
+            class="mb-3"
+          >
+            <b-form-input
+              v-model="form.cp"
+              type="text"
+              class="form-control"
+              id="cp"
+              placeholder=""
+              required
+            />
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <hr class="my-4" />
+      <h4 class="mb-3">Datos de contacto</h4>
+
+      <b-row>
+        <b-col cols="4">
+          <b-form-group
+            id="input-group-9"
+            label="Telefono"
+            label-for="telefono"
+            class="mb-3"
+          >
+            <b-form-input
+              v-model="form.telefono"
+              type="number"
+              class="form-control"
+              id="telefono"
+              placeholder="7771234567"
+              required
+            />
+          </b-form-group>
+        </b-col>
+      </b-row>
+
+      <hr class="my-4" />
+
+      <b-row>
+        <b-col cols="9">
+          <h4 class="mb-3">Pago</h4>
+        </b-col>
+        <b-col>
+          <h4 class="align-items-center">
             <span class="badge bg-success rounded-pill">
-              Total: ${{ form.monto }}MX
+              Total a pagar: ${{ form.monto }}MX
             </span>
           </h4>
-        </div>
+        </b-col>
+      </b-row>
 
-        <div class="col-md-7 col-lg-8">
-          <h4 class="mb-3">Direccion de pago</h4>
-          <b-form @submit="onSubmit">
-            <div class="row g-3">
-              <div class="col-sm-6">
-                <label for="nombre" class="form-label">Nombre</label>
-                <b-form-input
-                  v-model="form.nombre"
-                  type="text"
-                  class="form-control"
-                  id="nombre"
-                  placeholder="Jonathan Abed"
-                  value=""
-                  required
-                />
-              </div>
+      <b-row>
+        <b-col>
+          <b-form-group
+            id="input-group-10"
+            label="Propietario de la tarjeta"
+            label-for="propietario"
+            class="mb-3"
+          >
+            <b-form-input
+              v-model="form.tarjeta.propietario"
+              type="text"
+              class="form-control"
+              id="propietario"
+              placeholder="Propietario de la tarjeta"
+              required
+            />
+          </b-form-group>
+        </b-col>
+      </b-row>
 
-              <div class="col-sm-6">
-                <label for="apellidos" class="form-label">Apellidos</label>
-                <b-form-input
-                  v-model="form.apellidos"
-                  type="text"
-                  class="form-control"
-                  id="apellidos"
-                  placeholder="Ramirez Garcia"
-                  value=""
-                  required
-                />
-              </div>
-              <div class="col-sm-8">
-                <label for="calle" class="form-label">Calle</label>
-                <b-form-input
-                  v-model="form.calle"
-                  type="text"
-                  class="form-control"
-                  id="calle"
-                  placeholder="Av Morelos"
-                  required
-                />
-              </div>
-              <div class="col-sm-4">
-                <label for="numero" class="form-label">Numero</label>
-                <b-form-input
-                  v-model="form.numero"
-                  type="text"
-                  class="form-control"
-                  id="numero"
-                  placeholder="#"
-                  required
-                />
-              </div>
+      <b-row>
+        <b-col>
+          <b-form-group
+            id="input-group-11"
+            label="Número de tarjeta"
+            label-for="tarjeta"
+            class="mb-3"
+          >
+            <b-form-input
+              v-model="form.tarjeta.numero"
+              type="text"
+              class="form-control"
+              id="tarjeta"
+              placeholder="16 digitos"
+              required
+            />
+          </b-form-group>
+        </b-col>
 
-              <div class="col-12">
-                <label for="ciudad" class="form-label">Colonia </label>
-                <b-form-input
-                  v-model="form.colonia"
-                  type="text"
-                  class="form-control"
-                  id="ciudad"
-                  placeholder="Santa Maria "
-                />
-              </div>
-              <div class="col-md-5">
-                <label for="pais" class="form-label">Pais</label>
-                <b-form-select
-                  v-model="form.pais"
-                  class="form-select"
-                  id="pais"
-                  required
-                >
-                  <option>Mexico</option>
-                  <option>Perú</option>
-                </b-form-select>
-              </div>
+        <b-col>
+          <b-form-group
+            id="input-group-12"
+            label="CVV"
+            label-for="cvv"
+            class="mb-3"
+          >
+            <b-form-input
+              v-model="form.tarjeta.cvv"
+              type="text"
+              class="form-control"
+              id="cvv"
+              placeholder="***"
+              required
+            />
+          </b-form-group>
+        </b-col>
 
-              <div class="col-md-4">
-                <label for="estado" class="form-label">Estado</label>
-                <b-form-select
-                  v-model="form.estado"
-                  class="form-select"
-                  id="estado"
-                  required
-                >
-                  <option>Morelos</option>
-                  <option>CDMX</option>
-                </b-form-select>
-              </div>
+        <b-col>
+          <b-form-group
+            id="input-group-13"
+            label="Fecha de expiración"
+            label-for="caducidad"
+            class="mb-3"
+          >
+            <b-form-input
+              v-model="form.tarjeta.caducidad"
+              type="date"
+              class="form-control"
+              id="caducidad"
+              placeholder=""
+              required
+            />
+          </b-form-group>
+        </b-col>
+      </b-row>
 
-              <div class="col-md-3">
-                <label for="cp" class="form-label">Codigo postal (C.P)</label>
-                <b-form-input
-                  v-model="form.cp"
-                  type="text"
-                  class="form-control"
-                  id="cp"
-                  placeholder=""
-                  required
-                />
-              </div>
-              <hr class="my-4" />
-              <h4 class="mb-3">Datos de contacto</h4>
-              <div class="col-12">
-                <label for="telefono" class="form-label">Telefono</label>
-                <b-form-input
-                  v-model="form.telefono"
-                  type="number"
-                  class="form-control"
-                  id="telefono"
-                  placeholder="7771234567"
-                  required
-                />
-              </div>
+      <hr class="my-4" />
 
-              <hr class="my-4" />
-              <h4 class="mb-3">Pago</h4>
+      <b-button class="w-100 btn btn-lg" variant="success" type="submit">
+        Pagar
+      </b-button>
+    </b-form>
 
-              <div class="col-md-6">
-                <label for="propietario" class="form-label">Propietario</label>
-                <b-form-input
-                  v-model="form.tarjeta.propietario"
-                  type="text"
-                  class="form-control"
-                  id="propietario"
-                  placeholder=""
-                  required
-                />
-              </div>
+    <b-row>
+      <b-col>
+        <b-card class="mt-3" header="Datos del formulario">
+          <pre class="m-0">{{ form }}</pre>
+        </b-card>
+      </b-col>
 
-              <div class="col-md-6">
-                <label for="tarjeta" class="form-label"
-                  >Numero de tarjeta</label
-                >
-                <b-form-input
-                  v-model="form.tarjeta.numero"
-                  type="text"
-                  class="form-control"
-                  id="tarjeta"
-                  placeholder=""
-                  required
-                />
-              </div>
-
-              <div class="col-md-3">
-                <label for="cvv" class="form-label">CVV</label>
-                <b-form-input
-                  v-model="form.tarjeta.cvv"
-                  type="text"
-                  class="form-control"
-                  id="cvv"
-                  placeholder=""
-                  required
-                />
-              </div>
-              <div class="col-md-3">
-                <label for="caducidad" class="form-label"
-                  >Fecha de expiracion</label
-                >
-                <b-form-input
-                  v-model="form.tarjeta.caducidad"
-                  type="date"
-                  class="form-control"
-                  id="caducidad"
-                  placeholder=""
-                  required
-                />
-              </div>
-            </div>
-            <hr class="my-4" />
-
-            <b-button class="w-100 btn btn-lg" variant="success" type="submit"
-              >Pagar</b-button
-            >
-          </b-form>
-        </div>
-      </div>
-    </main>
-  </div>
+      <b-col>
+        <b-card class="mt-3" header="Datos encriptados">
+          <pre class="m-0">{{ encryptedForm }}</pre>
+        </b-card>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
-import {encryptBi, encryptUni} from "../services/cryptoService.js";
-import registerPayment from "../services/paymentService.js";
+import { encryptBi, encryptUni } from "../services/cryptoService.js";
 import paymentService from "../services/paymentService.js";
 
 export default {
@@ -228,6 +340,7 @@ export default {
         },
         monto: Math.floor(Math.random() * 1000),
       },
+      encryptedForm: {},
     };
   },
   methods: {
@@ -236,9 +349,9 @@ export default {
       try {
         const encryptedForm = this.encryptData(this.form);
 
-        const response = await paymentService.registerPayment(encryptedForm);
-        // await paymentService.registerPayment(this.form);
-        this.$router.push({ name: "payments" });
+        this.encryptedForm = encryptedForm;
+        await paymentService.registerPayment(encryptedForm);
+        // this.$router.push({ name: "payments" });
       } catch (error) {
         console.error(error);
       }
@@ -262,15 +375,9 @@ export default {
           cvv: encryptUni(this.form.tarjeta.cvv),
           caducidad: encryptUni(this.form.tarjeta.caducidad),
           propietario: encryptUni(this.form.tarjeta.propietario),
-        }
+        },
       };
     },
   },
 };
 </script>
-
-<style scoped>
-.marginB {
-  margin-bottom: 2rem;
-}
-</style>
