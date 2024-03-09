@@ -12,7 +12,6 @@ const getPayments = async () => {
 };
 
 const registerPayment = async (payment) => {
-  console.log(payment)
   try {
     const response = await axios.post(API_URL + "save", payment, {
       headers: {
