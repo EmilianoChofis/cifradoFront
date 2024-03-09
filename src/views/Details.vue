@@ -1,5 +1,5 @@
 <template>
-  <b-container class="mt-4">
+  <b-container class="mt-4 mb-4">
     <h1>Detalles de la compra</h1>
 
     <b-row class="mt-4">
