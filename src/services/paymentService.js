@@ -12,13 +12,13 @@ const getPayments = async () => {
 };
 
 const registerPayment = async (payment) => {
+  console.log(payment)
   try {
     const response = await axios.post(API_URL + "save", payment, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-    console.log("Los del front estan bien pendejos" ,response);
     return response.data;
   } catch (error) {
     console.error(error);

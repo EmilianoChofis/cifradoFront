@@ -5,7 +5,7 @@
     <b-button
         variant="primary"
         class="mt-2 mb-4"
-        :to="{ name: 'form' }"
+        :to="{ name: 'paymentForm' }"
     >
       Registrar compra
     </b-button>
@@ -24,7 +24,7 @@
 
           <b-button
               variant="primary"
-              :to="{ name: 'details', params: { id: payment.id } }"
+              :to="{ name: 'detailsPayment', params: { id: payment.id } }"
           >
             Detalles de la compra
           </b-button>
